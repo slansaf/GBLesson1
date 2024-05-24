@@ -1,9 +1,29 @@
 package ru.gb.family_tree;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 public class Main {
     public static void main(String[] args) {
+        String filePath = "src/ru/gb/favily_tree/tree.txt";
+        FamilyTree tree = testTree();
+       //FamilyTree tree  = load(filePath);
+       System.out.println(tree);
+       save(tree, filePath);
+
+    }
+
+    private static FamilyTree load(String filePath){
+        Writable writable = new FileHandler();
+        return (FamilyTree) writable.read(filePath);
+    }
+
+    private static void save(FamilyTree familyTree, String filePath){
+        Writable writable = new FileHandler();
+        writable.save(familyTree, filePath);
+    }
+
+    private static FamilyTree testTree() {
         FamilyTree familyTree = new FamilyTree();
 
         Human human1 = new Human("Oleg", Gender.Male, LocalDate.of(1985, 12, 12));
@@ -19,10 +39,6 @@ public class Main {
 
         familyTree.setWedding(human1.getId(), human2.getId());
 
-
-        System.out.println(familyTree);
-
-        System.out.println(familyTree.findByName("olga"));
-
+        return familyTree;
     }
 }
