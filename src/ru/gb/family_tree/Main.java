@@ -1,15 +1,24 @@
 package ru.gb.family_tree;
 
-import java.io.Serializable;
+import ru.gb.family_tree.family_tree.FamilyTree;
+import ru.gb.family_tree.human.Gender;
+import ru.gb.family_tree.human.Human;
+import ru.gb.family_tree.save.FileHandler;
+import ru.gb.family_tree.save.Writable;
+
 import java.time.LocalDate;
 
 public class Main {
     public static void main(String[] args) {
-        String filePath = "src/ru/gb/family_tree/tree.txt";
-       // FamilyTree tree = testTree();
-        FamilyTree tree  = load(filePath);
+        String filePath = "src/ru/gb/family_tree/save/tree.txt";
+        FamilyTree tree = testTree();
+        //FamilyTree tree  = load(filePath);
         System.out.println(tree);
-        save(tree, filePath);
+        tree.sotrByName();
+        System.out.println(tree);
+        tree.sortByBirthDate();
+        System.out.println(tree);
+        //save(tree, filePath);
 
     }
 
