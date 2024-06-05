@@ -1,12 +1,16 @@
 package ru.gb.family_tree.human;
 
+import ru.gb.family_tree.family_tree.FamiliTreeIterator;
+import ru.gb.family_tree.family_tree.FamilyTree;
+import ru.gb.family_tree.family_tree.TreeNode;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Human implements Serializable {
+public class Human implements TreeNode {
     private long id;
     private String name;
     private LocalDate birthDate, deathDate;
@@ -15,7 +19,7 @@ public class Human implements Serializable {
     private Gender gender;
     private Human spouse;
 
-    public Human(String name, Gender gender, LocalDate birthDate, LocalDate deathDate, Human father, Human mother) {
+    public Human (String name, Gender gender, LocalDate birthDate, LocalDate deathDate, Human father, Human mother) {
         id = -1;
         this.name = name;
         this.gender = gender;
@@ -64,6 +68,21 @@ public class Human implements Serializable {
         return null;
     }
 
+    @Override
+    public Object getMother() {
+        return null;
+    }
+
+    @Override
+    public boolean addChild(Object human) {
+        return false;
+    }
+
+    @Override
+    public boolean addParent(Object human) {
+        return false;
+    }
+
     public Human getMather(){
         for (Human parent: parents){
             if(parent.getGender() == Gender.Female){
@@ -93,6 +112,11 @@ public class Human implements Serializable {
 
     public Human getSpouse(){
         return spouse;
+    }
+
+    @Override
+    public void setSpouse(Object human) {
+
     }
 
     public String getName(){
