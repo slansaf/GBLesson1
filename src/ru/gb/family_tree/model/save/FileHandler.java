@@ -1,4 +1,4 @@
-package ru.gb.family_tree.save;
+package ru.gb.family_tree.model.save;
 
 import java.io.*;
 
