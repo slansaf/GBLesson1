@@ -11,65 +11,56 @@ public class ConsoleUI  implements View {
     private Scanner scanner;
     private Presenter  presenter;
     private boolean work;
+    private MainMenu mainMenu;
 
     public ConsoleUI() {
         scanner = new Scanner(System.in);
         presenter = new Presenter(this);
         work = true;
+        mainMenu = new MainMenu(this);
     }
 
     @Override
     public void start() {
+        System.out.println("Создай свое семейное древо!");
         while (work) {
-            System.out.println("Создай свое семейное древо!");
-            System.out.println("1. Добавить человека");
-            System.out.println("2. Получить список  людей");
-            System.out.println("3. Отсортировать по имени");
-            System.out.println("4. Закончить работу");
-
-            String choise = scanner.nextLine();
-
-            switch (choise) {
-                case "1":
-                    addHuman();
-                    break;
-                case "2":
-                    getHumanInfo();
-                    break;
-                case "3":
-                    sotrByName();
-                    break;
-                case "4":
-                    finish();
-                    break;
-                default:
-                    System.out.println("Вы ввели некоректные данные.");
-            }
+            System.out.println(mainMenu.menu());
+            String choiceStr = scanner.nextLine();
+            //метод проверки на валидность
+            int choice = Integer.parseInt(choiceStr);
+            mainMenu.execute(choice);
         }
 
     }
 
-    private void sotrByName() {
+    public void loadTree() {
+        presenter.loadFamaleTree();
+    }
+
+    public void saveTree() {
+        presenter.saveFamaleTree();
+    }
+
+    public void sotrByName() {
         presenter.sotrByName();
     }
 
-    private void getHumanInfo() {
+    public void getHumanInfo() {
         presenter.getHumanInfo();
     }
 
-    private void finish() {
+    public void finish() {
         work = false;
     }
 
 
-    private void addHuman(){
+    public void addHuman(){
         Gender gender;
         System.out.println("Укажите имя");
         String name = scanner.nextLine();
 
         System.out.println("Укажите пол Male или Female:");
         String genderStr = scanner.nextLine();
-
         gender = getGenderFromString(genderStr);
 
         System.out.println("Укажите возраст:");
