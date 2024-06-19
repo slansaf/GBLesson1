@@ -8,7 +8,7 @@ public class SortByName extends Command{
     }
     @Override
     public void execute(){
-        getConsoleUI().sotrByName();
+        getConsoleUI().sortByName();
     };
 
 }

@@ -39,7 +39,7 @@ public class FamilyTree<E extends TreeNode<E>> implements Serializable, Iterable
         }
     }
 
-    private void addToChildern(E human){
+    public void addToChildern(E human){
         for (E child: human.getChildren()){
             child.addParent(human);
         }
@@ -129,7 +129,7 @@ public class FamilyTree<E extends TreeNode<E>> implements Serializable, Iterable
        StringBuilder stringBuilder = new StringBuilder();
        stringBuilder.append("В дереве ");
        stringBuilder.append(humanList.size());
-       stringBuilder.append("объектов: \n");
+       stringBuilder.append(" объектов: \n");
         for (E human : humanList) {
             stringBuilder.append(human);
             stringBuilder.append("\n");
@@ -137,7 +137,7 @@ public class FamilyTree<E extends TreeNode<E>> implements Serializable, Iterable
         return stringBuilder.toString();
     }
 
-    public void sotrByName(){
+    public void sortByName(){
         humanList.sort(new HumanComparatorByName<>());
     }
 

@@ -1,8 +1,7 @@
 package ru.gb.family_tree.presenter;
 
+import ru.gb.family_tree.model.Service;
 import ru.gb.family_tree.model.family_tree.FamilyTree;
-import ru.gb.family_tree.model.human.Gender;
-import ru.gb.family_tree.model.human.Human;
 import ru.gb.family_tree.model.save.FileHandler;
 import ru.gb.family_tree.model.save.Writable;
 import ru.gb.family_tree.view.View;
@@ -11,47 +10,46 @@ import java.time.LocalDate;
 
 public class Presenter {
     private View view;
-    private Human human;
-    private FamilyTree familyTree;
-    String filePath = "src/ru/gb/family_tree/model/save/tree.txt";
+    private Service service;
 
     public Presenter(View view) {
         this.view = view;
-        familyTree  = new FamilyTree<>();
+        service = new Service();
     }
 
-    public void addHuman(String name, Gender gender, LocalDate date) {
-        familyTree.addHuman(new Human(name, gender,  date));
+
+    public void addHuman(String name, String gender, LocalDate date, String nameFather, String nameMather){
+        service.addHuman(name, gender, date, nameFather, nameMather);
         getHumanInfo();
     }
-
     public void getHumanInfo(){
-        String answar = familyTree.getInfo();
-        view.printAnswer(answar);
+        view.printAnswer(service.getHumanInfo());
     }
 
-    public void sotrByName() {
-        familyTree.sotrByName();
+    public void sortByName() {
+        service.sotrByName();
         getHumanInfo();
     }
 
-    public void saveFamaleTree() {
-        save(familyTree, filePath);
+    public void saveFemaleTree() {
+        service.saveFemaleTree();
     }
 
-    public void loadFamaleTree() {
-        familyTree = load(filePath);
+    public void loadFemaleTree() {
+        service.loadFemaleTree();
     }
 
-    private static FamilyTree load(String filePath){
-        Writable writable = new FileHandler();
-        return (FamilyTree) writable.read(filePath);
+    public void setWedding(int idMale, int idFemale) {
+        service.setWedding(idMale, idFemale);
+        getHumanInfo();
     }
 
-    private static void save(FamilyTree familyTree, String filePath){
-        Writable writable = new FileHandler();
-        writable.save(familyTree, filePath);
+    public void addChildren(String nameParent, String nameChild) {
+        service.addChildren(nameParent, nameChild);
     }
 
-
+    public void sortByBirthDate() {
+        service.sortByBirthDate();
+        getHumanInfo();
+    }
 }

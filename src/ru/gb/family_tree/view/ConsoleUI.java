@@ -33,16 +33,30 @@ public class ConsoleUI  implements View {
 
     }
 
+    public void setWedding(){
+        System.out.println("Введите Id мужчины: ");
+        String idMaleStr = scanner.nextLine();
+        int  idMale = Integer.parseInt(idMaleStr);
+        System.out.println("Введите Id женщины: ");
+        String idFimaleStr = scanner.nextLine();
+        int  idFimale = Integer.parseInt(idFimaleStr);
+        presenter.setWedding(idMale, idFimale);
+    }
+
     public void loadTree() {
-        presenter.loadFamaleTree();
+        presenter.loadFemaleTree();
     }
 
     public void saveTree() {
-        presenter.saveFamaleTree();
+        presenter.saveFemaleTree();
     }
 
-    public void sotrByName() {
-        presenter.sotrByName();
+    public void sortByName() {
+        presenter.sortByName();
+    }
+
+    public void sortByBirthDate(){
+        presenter.sortByBirthDate();
     }
 
     public void getHumanInfo() {
@@ -55,13 +69,12 @@ public class ConsoleUI  implements View {
 
 
     public void addHuman(){
-        Gender gender;
+
         System.out.println("Укажите имя");
         String name = scanner.nextLine();
 
         System.out.println("Укажите пол Male или Female:");
         String genderStr = scanner.nextLine();
-        gender = getGenderFromString(genderStr);
 
         System.out.println("Укажите возраст:");
         System.out.println("Введите год рождения:");
@@ -73,26 +86,25 @@ public class ConsoleUI  implements View {
         System.out.println("Введите день:");
         String dayStr = scanner.nextLine();
         int day = Integer.parseInt(dayStr);
+        System.out.println("Укажите имя отца: ");
+        String nameFather = scanner.nextLine();
+        System.out.println("Укажите имя матери: ");
+        String nameMather = scanner.nextLine();
 
         LocalDate date = LocalDate.of(year, month, day);
-        presenter.addHuman(name, gender, date);
-    }
-
-    public static Gender getGenderFromString(String input) {
-        if (input == null) {
-            return null;
-        }
-
-        try {
-            return Gender.valueOf(input);
-        } catch (IllegalArgumentException e) {
-            // Если введенная строка не соответствует ни одной из констант
-            return null;
-        }
+        presenter.addHuman(name, genderStr, date, nameFather, nameMather);
     }
 
     @Override
     public void printAnswer(String answer) {
         System.out.println(answer);
+    }
+
+    public void addChildren() {
+        System.out.println("Укажите имя родителя: ");
+        String nameParent = scanner.nextLine();
+        System.out.println("Укажите имя ребенка: ");
+        String nameChild = scanner.nextLine();
+        presenter.addChildren(nameParent, nameChild);
     }
 }

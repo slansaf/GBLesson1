@@ -8,7 +8,7 @@ public interface TreeNode<T> extends Serializable {
     void setId(long id);
     long getId();
     T getFather();
-    T getMother();
+    T getMather();
     boolean addChild(T human);
     boolean addParent(T human);
     String getName();

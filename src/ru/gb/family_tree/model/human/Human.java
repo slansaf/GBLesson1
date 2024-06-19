@@ -7,7 +7,7 @@ import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Human implements TreeNode {
+public class Human implements TreeNode<Human>{
     private long id;
     private String name;
     private LocalDate birthDate, deathDate;
@@ -15,6 +15,8 @@ public class Human implements TreeNode {
     private List<Human> children;
     private Gender gender;
     private Human spouse;
+
+
 
     public Human (String name, Gender gender, LocalDate birthDate, LocalDate deathDate, Human father, Human mother) {
         id = -1;
@@ -65,21 +67,6 @@ public class Human implements TreeNode {
         return null;
     }
 
-    @Override
-    public Object getMother() {
-        return null;
-    }
-
-    @Override
-    public boolean addChild(Object human) {
-        return false;
-    }
-
-    @Override
-    public boolean addParent(Object human) {
-        return false;
-    }
-
     public Human getMather(){
         for (Human parent: parents){
             if(parent.getGender() == Gender.Female){
@@ -111,10 +98,6 @@ public class Human implements TreeNode {
         return spouse;
     }
 
-    @Override
-    public void setSpouse(Object human) {
-
-    }
 
     public String getName(){
         return name;
@@ -231,7 +214,7 @@ public class Human implements TreeNode {
 
     @Override
     public boolean equals(Object obj){
-        if (this ==obj){
+        if (this == obj){
             return true;
         }
         if (!(obj instanceof  Human)){
