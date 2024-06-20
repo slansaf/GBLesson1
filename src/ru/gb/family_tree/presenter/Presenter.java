@@ -18,8 +18,8 @@ public class Presenter {
     }
 
 
-    public void addHuman(String name, String gender, LocalDate date, int nameFather, int nameMather){
-        service.addHuman(name, gender, date, nameFather, nameMather);
+    public void addHuman(String name, String gender, LocalDate date){
+        service.addHuman(name, gender, date);
         getHumanInfo();
     }
     public void getHumanInfo(){

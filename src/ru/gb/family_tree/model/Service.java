@@ -19,8 +19,8 @@ public class Service {
         familyTree  = new FamilyTree<>();
     }
 
-    public void addHuman(String name, String gender, LocalDate date, int nameFather, int nameMather) {
-        familyTree.addHuman(new Human(name, getGenderFromString(gender),  date, (Human) familyTree.getById(nameFather), (Human) familyTree.getById(nameMather)));
+    public void addHuman(String name, String gender, LocalDate date) {
+        familyTree.addHuman(new Human(name, getGenderFromString(gender),  date));
     }
 
    public void addChildren(int nameParent, int nameChild){

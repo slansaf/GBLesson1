@@ -86,15 +86,9 @@ public class ConsoleUI  implements View {
         System.out.println("Введите день:");
         String dayStr = scanner.nextLine();
         int day = Integer.parseInt(dayStr);
-        System.out.println("Укажите id отца: ");
-        String nameFather = scanner.nextLine();
-        int idFather = Integer.parseInt(nameFather);
-        System.out.println("Укажите id матери: ");
-        String nameMather = scanner.nextLine();
-        int idMather = Integer.parseInt(nameMather);
 
         LocalDate date = LocalDate.of(year, month, day);
-        presenter.addHuman(name, genderStr, date, idFather, idMather);
+        presenter.addHuman(name, genderStr, date);
     }
 
     @Override
