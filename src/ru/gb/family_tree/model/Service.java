@@ -9,6 +9,7 @@ import ru.gb.family_tree.presenter.Presenter;
 import ru.gb.family_tree.view.View;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class Service {
     private FamilyTree familyTree;
@@ -18,12 +19,12 @@ public class Service {
         familyTree  = new FamilyTree<>();
     }
 
-    public void addHuman(String name, String gender, LocalDate date, String nameFather, String nameMather) {
-        familyTree.addHuman(new Human(name, getGenderFromString(gender),  date));
+    public void addHuman(String name, String gender, LocalDate date, int nameFather, int nameMather) {
+        familyTree.addHuman(new Human(name, getGenderFromString(gender),  date, (Human) familyTree.getById(nameFather), (Human) familyTree.getById(nameMather)));
     }
 
-   public void addChildren(String nameParent, String nameChild){
-
+   public void addChildren(int nameParent, int nameChild){
+        familyTree.getById(nameParent).addChild(familyTree.getById(nameChild));
    }
 
     public String getHumanInfo(){

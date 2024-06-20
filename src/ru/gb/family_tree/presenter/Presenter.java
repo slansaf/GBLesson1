@@ -18,7 +18,7 @@ public class Presenter {
     }
 
 
-    public void addHuman(String name, String gender, LocalDate date, String nameFather, String nameMather){
+    public void addHuman(String name, String gender, LocalDate date, int nameFather, int nameMather){
         service.addHuman(name, gender, date, nameFather, nameMather);
         getHumanInfo();
     }
@@ -44,7 +44,7 @@ public class Presenter {
         getHumanInfo();
     }
 
-    public void addChildren(String nameParent, String nameChild) {
+    public void addChildren(int nameParent, int nameChild) {
         service.addChildren(nameParent, nameChild);
     }
 
