@@ -59,7 +59,7 @@ public class ConsoleUI  implements View {
         presenter.sortByBirthDate();
     }
 
-    public void getHumanInfo() {
+    public void getInfo() {
         presenter.getHumanInfo();
     }
 

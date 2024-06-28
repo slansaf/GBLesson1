@@ -1,30 +1,36 @@
 package ru.gb.family_tree.model;
 
 import ru.gb.family_tree.model.family_tree.FamilyTree;
+import ru.gb.family_tree.model.family_tree.TreeNode;
 import ru.gb.family_tree.model.human.Gender;
-import ru.gb.family_tree.model.human.Human;
 import ru.gb.family_tree.model.save.FileHandler;
 import ru.gb.family_tree.model.save.Writable;
-import ru.gb.family_tree.presenter.Presenter;
-import ru.gb.family_tree.view.View;
 
 import java.time.LocalDate;
-import java.util.List;
 
-public class Service {
-    private FamilyTree familyTree;
+public class Service<T extends TreeNode<T>> {
+    private FamilyTree<T> familyTree;
+    private PersonFactory<T> factory;
+
+    Writable fileHandler = new FileHandler();
+    FamilyTreeManager manager = new FamilyTreeManager(fileHandler);
     private String filePath = "src/ru/gb/family_tree/model/save/tree.txt";
 
-    public Service() {
+    public Service(PersonFactory<T> factory) {
+        this.factory = factory;
         familyTree  = new FamilyTree<>();
     }
 
     public void addHuman(String name, String gender, LocalDate date) {
-        familyTree.addHuman(new Human(name, getGenderFromString(gender),  date));
+        T human = factory.createPerson(name, getGenderFromString(gender), date);
+        familyTree.addHuman(human);
     }
 
-   public void addChildren(int nameParent, int nameChild){
-        familyTree.getById(nameParent).addChild(familyTree.getById(nameChild));
+   public void addChildren(int idParent, int idChild){
+        familyTree.getById(idParent).addChild(familyTree.getById(idChild));
+        familyTree.getById(idParent).getSpouse().addChild(familyTree.getById(idChild));
+        familyTree.getById(idChild).addParent(familyTree.getById(idParent).getSpouse());
+        familyTree.getById(idChild).addParent(familyTree.getById(idParent));
    }
 
     public String getHumanInfo(){
@@ -41,23 +47,12 @@ public class Service {
     }
 
     public void saveFemaleTree() {
-        save(familyTree, filePath);
+        manager.save(familyTree, filePath);
     }
 
     public void loadFemaleTree() {
-        familyTree = load(filePath);
+        familyTree = manager.load(filePath);
     }
-
-    private static FamilyTree load(String filePath){
-        Writable writable = new FileHandler();
-        return (FamilyTree) writable.read(filePath);
-    }
-
-    private static void save(FamilyTree familyTree, String filePath){
-        Writable writable = new FileHandler();
-        writable.save(familyTree, filePath);
-    }
-
 
     public void setWedding(int idMale, int idFemale) {
         familyTree.setWedding(idMale, idFemale);
@@ -67,7 +62,6 @@ public class Service {
         if (input == null) {
             return null;
         }
-
         try {
             return Gender.valueOf(input);
         } catch (IllegalArgumentException e) {
